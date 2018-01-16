@@ -2,6 +2,7 @@
 //React
 import React from 'react';
 import {render} from 'react-dom';
+import {Provider} from 'react-redux';
 
 import {applyMiddleware, createStore} from 'redux';
 import {createLogger} from 'redux-logger';
@@ -16,52 +17,36 @@ import {postBooks, deleteBooks, updateBooks} from './actions/booksActions';
 const middleware = applyMiddleware(createLogger());
 const store = createStore(reducers, middleware);
 
-store.subscribe(function() {
-  console.log('current state is: ', store.getState())
-  // console.log('current state is: ', store.getState()[1].price)
-
-})
-
 import BooksList from './components/pages/bookslist';
 
 render (
-  <BooksList />, document.getElementById('app')
+  <Provider store={store}>
+    <BooksList />
+  </Provider>, document.getElementById('app')
 )
+
 //STEP 2 create dispatch actions
-store.dispatch(postBooks(
-  [
-    {
-      id: 1,
-      title: 'Book Title',
-      description: 'This book is about stuff',
-      price: 100,
-    },
-    {
-      id: 2,
-      title: 'Book Title Two',
-      description: 'This book is about more stuff',
-      price: 300,
-    }
-  ]
-));
+// store.dispatch(postBooks(
 
-//DELETE A BOOK
-store.dispatch(deleteBooks(
-  {id: 1}
-));
+// ));
+
+// //DELETE A BOOK
+// store.dispatch(deleteBooks(
+//   {id: 1}
+// ));
 
 
-//update a book
+// //update a book
 
-store.dispatch(updateBooks(
-  {
-    id: 2,
-    title: 'The biography of adam',
-  }
-));
+// store.dispatch(updateBooks(
+//   {
+//     id: 2,
+//     title: 'The biography of adam',
+//   }
+// ));
 
-//-->>Cart Actions <<--
-//add to cart
-store.dispatch(addToCart([{id: 1}]));
+// //-->>Cart Actions <<--
+// //add to cart
+// store.dispatch(addToCart([{id: 1}]));
 
 
