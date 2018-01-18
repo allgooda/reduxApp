@@ -12,15 +12,14 @@ class BookItem extends React.Component{
       title:this.props.title,
       description:this.props.description,
       price:this.props.price,
-      quantity: 1,
+      quantity: 1
     }]
     //CHECK IF CART IS EMPTY
     console.log(book);
     if(this.props.cart.length > 0) {
       //cart not empty
-      console.log('yesss');
+       console.log('yesss');
        let _id = this.props._id;
-
        let cartIndex = this.props.cart.findIndex(function(cart) {
          return cart._id === _id;
        })

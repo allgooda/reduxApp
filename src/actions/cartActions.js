@@ -15,7 +15,7 @@ export function updateCart(_id, unit) {
   return {
     type: "UPDATE_CART",
     _id: _id,
-    quantity: unit
+    unit: unit
   }
 }
 //DELETE Cart Item
