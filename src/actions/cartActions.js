@@ -8,3 +8,21 @@ export function addToCart(book) {
     payload: book
   }
 }
+
+//update cart 
+
+export function updateCart(_id, unit) {
+  return {
+    type: "UPDATE_CART",
+    _id: _id,
+    quantity: unit
+  }
+}
+//DELETE Cart Item
+
+export function deleteCartItem(cart) {
+  return {
+    type:"DELETE_CART_ITEM",
+    payload: cart
+  }
+}
