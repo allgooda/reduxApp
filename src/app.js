@@ -18,35 +18,18 @@ const middleware = applyMiddleware(createLogger());
 const store = createStore(reducers, middleware);
 
 import BooksList from './components/pages/bookslist';
+import Menu from './components/menu';
+import Footer from './components/footer';
 
 render (
   <Provider store={store}>
-    <BooksList />
+    <div>
+      <Menu />
+      <BooksList />
+      <Footer />
+    </div>
+
   </Provider>, document.getElementById('app')
 )
-
-//STEP 2 create dispatch actions
-// store.dispatch(postBooks(
-
-// ));
-
-// //DELETE A BOOK
-// store.dispatch(deleteBooks(
-//   {id: 1}
-// ));
-
-
-// //update a book
-
-// store.dispatch(updateBooks(
-//   {
-//     id: 2,
-//     title: 'The biography of adam',
-//   }
-// ));
-
-// //-->>Cart Actions <<--
-// //add to cart
-// store.dispatch(addToCart([{id: 1}]));
 
 

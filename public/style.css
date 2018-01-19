@@ -1,0 +1,19 @@
+body {
+  margin: 50px;
+  margin-bottom: 50px;
+}
+
+.container {
+  width: auto;
+  max-width: 900px;
+  padding: 0 15px;
+}
+
+.container .footer-text {
+  maring: 20px 0;
+}
+
+.badge {
+  background-color: #e4aa48;
+}
+
