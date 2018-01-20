@@ -37,12 +37,24 @@ app.post('/books', function(req,res) {
   })
 });
 
+//GET ALL BOOKS
 app.get('/books', function(req, res) {
   Books.find(function(err, books) {
     if(err) {
       throw err;
     }
     res.json(books);
+  })
+});
+
+//DELETE BOOK
+app.delete('/books/:_id', function(req, res) {
+  var query = {_id: req.params._id };
+  Books.remove(query, function(err, books) {
+    if(err) {
+      throw err;
+    }
+    res.json(books)
   })
 });
 
