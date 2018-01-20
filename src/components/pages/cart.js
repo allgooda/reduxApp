@@ -89,7 +89,7 @@ class Cart extends React.Component{
         {cartItemsList}
         <Row>
           <Col xs={12}>
-            <h6>Total amount: {this.props.totalAmount}</h6>
+            <h6>Total amount:{this.props.totalAmount}</h6>
             <Button onClick={this.open.bind(this)} bsStyle="success" bsSize="small">
               PROCEED TO CHECKOUT
             </Button>
