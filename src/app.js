@@ -26,14 +26,14 @@ import Main from './main';
 
 const Routes = (
   <Provider store={store}>
-    <Router history={hashHistory}>
+    <Router history={browserHistory}>
       <Route path="/" component={Main}>
         <IndexRoute component={BooksList} />
         <Route path="/admin" component={BooksForm} />
         <Route path="/cart" component={Cart} />
       </Route>
     </Router>
-  </Provider> 
+  </Provider>
 )
 
 
