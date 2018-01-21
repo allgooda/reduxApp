@@ -47,6 +47,30 @@ app.get('/books', function(req, res) {
   })
 });
 
+//UPDATE BOOK
+app.put('/books/:_id', function(req, res) {
+  var book = req.body;
+  var query = {_id: req.params._id};
+  //if the field doesnt exist $set will set a new field
+  var update = {
+    '$set': {
+      title: book.title,
+      description: book.description,
+      image: book.image,
+      price: book.price,
+    }
+  };
+
+  var options = {new: true};
+
+  Books.findOneAndUpdate(query, update, options, function(err, books) {
+    if(err) {
+      throw err;
+    }
+    res.json(books);
+  })
+});
+
 //DELETE BOOK
 app.delete('/books/:_id', function(req, res) {
   var query = {_id: req.params._id };
