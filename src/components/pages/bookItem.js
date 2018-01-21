@@ -18,7 +18,6 @@ class BookItem extends React.Component{
     console.log(book);
     if(this.props.cart.length > 0) {
       //cart not empty
-       console.log('yesss');
        let _id = this.props._id;
        let cartIndex = this.props.cart.findIndex(function(cart) {
          return cart._id === _id;
@@ -28,14 +27,14 @@ class BookItem extends React.Component{
          this.props.addToCart(book)
        } else {
          //need to update quantity
-         this.props.updateCart(_id, 1)
+         this.props.updateCart(_id, 1, this.props.cart);
        }
     } else {
       //cart is empty
       console.log('helllooooo');
       this.props.addToCart(book);
     }
-    
+
   }
   render(){
     return(
