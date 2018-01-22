@@ -1,7 +1,19 @@
 "use strict"
 import axios from 'axios';
-//Add to Cart
 
+//GET CART
+export function getCart() {
+  return function(dispatch) {
+    axios.get("/api/cart")
+      .then(function(response) {
+        dispatch({type:"GET_CART", payload: response.data})
+      })
+      .catch(function(err) {
+        dispatch({type:"GET_CART_REJECTED", msg:"error getting cart from the session"})
+      })
+  }
+}
+//Add to Cart
 export function addToCart(cart) {
   return function(dispatch) {
     axios.post("/api/cart", cart)
@@ -32,9 +44,14 @@ export function updateCart(_id, unit, cart) {
   }
   let cartUpdate = [...currentBookToUpdate.slice(0, indexToUpdate), newBookToUpdate, ...currentBookToUpdate.slice(indexToUpdate + 1)];
 
-  return {
-    type: "UPDATE_CART",
-    payload:cartUpdate,
+  return function(dispatch) {
+    axios.post("/api/cart", cartUpdate)
+      .then(function(response) {
+        dispatch({type:"UPDATE_CART", payload:response.data})
+      })
+      .catch(function(err) {
+        dispatch({type:"UPDATE_CART_REJECTED", msg: "error when adding to the cart"})
+      })
   }
 }
 //DELETE Cart Item
