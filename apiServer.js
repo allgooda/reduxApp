@@ -102,6 +102,26 @@ app.delete('/books/:_id', function(req, res) {
   })
 });
 
+//GET BOOK IMAGES
+app.get('/images', function(req, res) {
+  const imgFolder = __dirname + '/public/images/';
+  //req file system
+  const fs = require('fs');
+  //read files in dir
+  fs.readdir(imgFolder, function(err, files) {
+    if(err) {
+      return console.error(err);
+    }
+    //create an empty array
+    const filesArr = [];
+    //iterate all files in dir and add to the array
+    files.forEach(function(file) {
+      filesArr.push({name: file});
+    });
+    res.json(filesArr);
+  })
+})
+
 //END APIs
 app.listen(3001, function(err) {
   if(err) {
