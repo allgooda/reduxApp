@@ -4,7 +4,7 @@ import {DropdownButton, Image, Col, Row, Well, Panel, FormControl, FormGroup, Co
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {findDOMNode} from 'react-dom';
-import {postBooks, deleteBooks, getBooks} from '../../actions/booksActions';
+import {postBooks, deleteBooks, getBooks, resetButton} from '../../actions/booksActions';
 import axios from 'axios';
 
 class BooksForm extends React.Component{
@@ -51,6 +51,15 @@ class BooksForm extends React.Component{
     })
   }
 
+  resetForm() {
+    //RESET FORM AND BUTTON
+    this.props.resetButton();
+    findDOMNode(this.refs.title).value = '';
+    findDOMNode(this.refs.description).value = '';
+    findDOMNode(this.refs.price).value = '';
+    this.setState({img:''})
+  }
+
   render() {
     const booksList = this.props.books.map((booksArr) => {
       return(
@@ -69,44 +78,49 @@ class BooksForm extends React.Component{
         <Row>
           <Col xs={12} sm={6}>
             <Panel>
-              <InputGroup>
-                <FormControl type="text" ref="image" value={this.state.img} />
-                <DropdownButton
-                  componentClass={InputGroup.Button}
-                  id="input-dropdown-addon"
-                  title="Select an Image"
-                  bsStyle="primary">
-                  {imgList}
-                  <MenuItem key="1">Item</MenuItem>
-                </DropdownButton>
-              </InputGroup>
+              <FormControl type="text" ref="image" value={this.state.img}/>
+              <DropdownButton
+                componentClass={InputGroup.Button}
+                id="input-dropdown-addon"
+                title="Select an Image"
+                bsStyle="primary">
+                {imgList}
+                <MenuItem key="1">Item</MenuItem>
+              </DropdownButton>
               <Image src={this.state.img} responsive/>
             </Panel>
           </Col>
           <Col xs={12} sm={6}>
             <Panel>
-              <FormGroup controlId="title">
+              <FormGroup controlId="title" validationState={this.props.validation} >
                 <ControlLabel>Title</ControlLabel>
                 <FormControl
                   type="text"
                   placeholder="Enter Title"
                   ref="title" />
+                  <FormControl.Feedback />
               </FormGroup>
-              <FormGroup controlId="Description">
+              <FormGroup controlId="Description" validationState={this.props.validation} >
                 <ControlLabel>Description</ControlLabel>
                 <FormControl
                   type="text"
                   placeholder="Enter Description"
                   ref="description" />
+                  <FormControl.Feedback />
               </FormGroup>
-              <FormGroup controlId="price">
+              <FormGroup controlId="price" validationState={this.props.validation} >
                 <ControlLabel>Price</ControlLabel>
                 <FormControl
                   type="text"
                   placeholder="Enter price"
                   ref="price" />
+                  <FormControl.Feedback />
               </FormGroup>
-              <Button onClick={this.handleSubmit.bind(this)} bsStyle="primary">Save Book</Button>
+              <Button 
+                onClick={(!this.props.msg)?(this.handleSubmit.bind(this)):(this.resetForm.bind(this))} 
+                bsStyle={(!this.props.style)?("primary"):(this.props.style)}>
+                {(!this.props.msg)?("Save book"):(this.props.msg)}
+               </Button>
             </Panel>
 
             <Panel style={{marginTop:"25px"}}>
@@ -128,6 +142,9 @@ class BooksForm extends React.Component{
 function mapStateToProps(state) {
   return {
     books: state.books.books,
+    msg: state.books.msg,
+    style: state.books.style,
+    validation: state.books.validation,
   }
 }
 function mapDispatchToProps(dispatch) {
@@ -135,6 +152,7 @@ function mapDispatchToProps(dispatch) {
     postBooks,
     deleteBooks,
     getBooks,
+    resetButton,
   }, dispatch)
 }
 
